@@ -1,1 +1,120 @@
+const products = [
+  {
+    name: "Pencil ✏️",
+    price: 10,
+    stock: 10,
+    img: "https://cdn-icons-png.flaticon.com/512/32/32339.png"
+  },
+  {
+    name: "Eraser 🧽",
+    price: 15,
+    stock: 8,
+    img: "https://cdn-icons-png.flaticon.com/512/1828/1828884.png"
+  }
+];
 
+let cart = [];
+
+const productList = document.getElementById("product-list");
+const cartList = document.getElementById("cart");
+const totalDisplay = document.getElementById("total");
+
+// 顯示商品
+function displayProducts(list) {
+  productList.innerHTML = "";
+
+  list.forEach((product, index) => {
+    const div = document.createElement("div");
+    div.className = "product";
+
+    div.innerHTML = `
+      <img src="${product.img}">
+      <h3>${product.name}</h3>
+      <p>Price: $${product.price}</p>
+      <p>Stock: ${product.stock}</p>
+      <button onclick="addToCart(${index})">Add</button>
+    `;
+
+    productList.appendChild(div);
+  });
+}
+
+displayProducts(products);
+
+// 加入購物車
+function addToCart(index) {
+  if (products[index].stock <= 0) {
+    alert("Out of stock!");
+    return;
+  }
+
+  products[index].stock--;
+
+  let item = cart.find(p => p.name === products[index].name);
+
+  if (item) {
+    item.quantity++;
+  } else {
+    cart.push({ ...products[index], quantity: 1 });
+  }
+
+  updateCart();
+  displayProducts(products);
+}
+
+// 更新購物車
+function updateCart() {
+  cartList.innerHTML = "";
+  let total = 0;
+
+  cart.forEach((item, i) => {
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      ${item.name} x ${item.quantity} = $${item.price * item.quantity}
+      <button onclick="changeQty(${i}, 1)">+</button>
+      <button onclick="changeQty(${i}, -1)">-</button>
+      <button onclick="removeItem(${i})">❌</button>
+    `;
+
+    cartList.appendChild(li);
+
+    total += item.price * item.quantity;
+  });
+
+  // 折扣（滿100打9折）
+  if (total >= 100) {
+    total *= 0.9;
+  }
+
+  totalDisplay.textContent = Math.floor(total);
+}
+
+// 改變數量
+function changeQty(index, change) {
+  cart[index].quantity += change;
+
+  if (cart[index].quantity <= 0) {
+    removeItem(index);
+    return;
+  }
+
+  updateCart();
+}
+
+// 刪除商品
+function removeItem(index) {
+  cart.splice(index, 1);
+  updateCart();
+}
+
+// 搜尋功能
+function searchProduct() {
+  const keyword = document.getElementById("search").value.toLowerCase();
+
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(keyword)
+  );
+
+  displayProducts(filtered);
+}
