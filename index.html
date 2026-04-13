@@ -1,21 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Stationery Store</title>
+  <title>Stationery Shop</title>
   <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<h1>🛒 Stationery Store</h1>
+<h1>🛒 Stationery Shop</h1>
 
-<input type="text" id="search" placeholder="Search..." oninput="searchProduct()">
+<div class="box">
 
-<div id="product-list"></div>
+  <!-- 鉛筆 -->
+  <div class="item">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Pencil.svg" alt="pencil">
+    <button onclick="addPencil()">＋ 鉛筆 ($10)</button>
+  </div>
 
-<h2>🧾 Cart</h2>
-<ul id="cart"></ul>
-<p>Total: $<span id="total">0</span></p>
+  <!-- 橡皮擦 -->
+  <div class="item">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Eraser.svg" alt="eraser">
+    <button onclick="addEraser()">＋ 橡皮擦 ($15)</button>
+  </div>
+
+  <button onclick="resetAll()">🗑 清空</button>
+
+  <h3>📦 數量</h3>
+  <p>鉛筆：<span id="pencilCount">0</span></p>
+  <p>橡皮擦：<span id="eraserCount">0</span></p>
+
+  <h2>💰 總價</h2>
+  <p id="total">0</p>
+
+</div>
 
 <script src="script.js"></script>
+
 </body>
 </html>
