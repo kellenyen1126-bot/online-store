@@ -1,28 +1,47 @@
-let pencil = 0;
-let eraser = 0;
+let cart = [];
 let total = 0;
 
-function addPencil() {
-  pencil++;
-  total += 10;
-  update();
-}
+function addItem(item) {
 
-function addEraser() {
-  eraser++;
-  total += 15;
-  update();
-}
+  if (item === "pencil") {
+    cart.push({ name: "鉛筆 ✏️", price: 10 });
+    total += 10;
+  }
 
-function resetAll() {
-  pencil = 0;
-  eraser = 0;
-  total = 0;
+  if (item === "eraser") {
+    cart.push({ name: "橡皮擦 🧽", price: 15 });
+    total += 15;
+  }
+
   update();
 }
 
 function update() {
-  document.getElementById("pencilCount").innerText = pencil;
-  document.getElementById("eraserCount").innerText = eraser;
+  let list = document.getElementById("cart");
+  list.innerHTML = "";
+
+  cart.forEach((item, index) => {
+    let li = document.createElement("li");
+
+    li.innerHTML = `
+      ${item.name} - $${item.price}
+      <button onclick="removeItem(${index})">❌</button>
+    `;
+
+    list.appendChild(li);
+  });
+
   document.getElementById("total").innerText = total;
+}
+
+function removeItem(index) {
+  total -= cart[index].price;
+  cart.splice(index, 1);
+  update();
+}
+
+function clearCart() {
+  cart = [];
+  total = 0;
+  update();
 }
