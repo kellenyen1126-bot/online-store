@@ -9,30 +9,32 @@
 
 <h1>🛒 Stationery Shop</h1>
 
-<div class="box">
+<div class="container">
 
-  <!-- 鉛筆 -->
-  <div class="item">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Pencil.svg" alt="pencil">
-    <button onclick="addPencil()">＋ 鉛筆 ($10)</button>
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Pencil.svg">
+    <h3>鉛筆 ✏️</h3>
+    <p>$10</p>
+    <button onclick="addItem('pencil')">加入購物車</button>
   </div>
 
-  <!-- 橡皮擦 -->
-  <div class="item">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Eraser.svg" alt="eraser">
-    <button onclick="addEraser()">＋ 橡皮擦 ($15)</button>
+  <div class="card">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Eraser.svg">
+    <h3>橡皮擦 🧽</h3>
+    <p>$15</p>
+    <button onclick="addItem('eraser')">加入購物車</button>
   </div>
-
-  <button onclick="resetAll()">🗑 清空</button>
-
-  <h3>📦 數量</h3>
-  <p>鉛筆：<span id="pencilCount">0</span></p>
-  <p>橡皮擦：<span id="eraserCount">0</span></p>
-
-  <h2>💰 總價</h2>
-  <p id="total">0</p>
 
 </div>
+
+<hr>
+
+<h2>🧾 購物車</h2>
+<ul id="cart"></ul>
+
+<h2>💰 總價：$<span id="total">0</span></h2>
+
+<button onclick="clearCart()">🗑 清空購物車</button>
 
 <script src="script.js"></script>
 
