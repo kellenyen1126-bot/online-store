@@ -1,31 +1,47 @@
-body {
-  font-family: Arial;
-  text-align: center;
-  margin-top: 60px;
-  background: #f5f5f5;
+let cart = [];
+let total = 0;
+
+function addItem(item) {
+
+  if (item === "pencil") {
+    cart.push({ name: "鉛筆 ✏️", price: 10 });
+    total += 10;
+  }
+
+  if (item === "eraser") {
+    cart.push({ name: "橡皮擦 🧽", price: 15 });
+    total += 15;
+  }
+
+  update();
 }
 
-.box {
-  display: inline-block;
-  padding: 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+function update() {
+  let list = document.getElementById("cart");
+  list.innerHTML = "";
+
+  cart.forEach((item, index) => {
+    let li = document.createElement("li");
+
+    li.innerHTML = `
+      ${item.name} - $${item.price}
+      <button onclick="removeItem(${index})">❌</button>
+    `;
+
+    list.appendChild(li);
+  });
+
+  document.getElementById("total").innerText = total;
 }
 
-.item {
-  margin: 15px;
+function removeItem(index) {
+  total -= cart[index].price;
+  cart.splice(index, 1);
+  update();
 }
 
-img {
-  width: 90px;
-  height: 90px;
-  display: block;
-  margin: auto;
-}
-
-button {
-  padding: 10px 15px;
-  cursor: pointer;
-  margin-top: 5px;
+function clearCart() {
+  cart = [];
+  total = 0;
+  update();
 }
