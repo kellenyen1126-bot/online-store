@@ -1,28 +1,35 @@
-let pencil = 0;
-let eraser = 0;
-let total = 0;
-
-function addPencil() {
-  pencil++;
-  total += 10;
-  update();
+body {
+  font-family: Arial;
+  text-align: center;
+  background: #f5f5f5;
 }
 
-function addEraser() {
-  eraser++;
-  total += 15;
-  update();
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
 }
 
-function resetAll() {
-  pencil = 0;
-  eraser = 0;
-  total = 0;
-  update();
+.card {
+  background: white;
+  padding: 15px;
+  border-radius: 12px;
+  width: 150px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 }
 
-function update() {
-  document.getElementById("pencilCount").innerText = pencil;
-  document.getElementById("eraserCount").innerText = eraser;
-  document.getElementById("total").innerText = total;
+img {
+  width: 80px;
+}
+
+button {
+  margin-top: 10px;
+  padding: 8px;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
 }
