@@ -1,46 +1,47 @@
-const products = [
-  { name: "Pencil ✏️", price: 10 },
-  { name: "Eraser 🧽", price: 5 }
-];
-
-const productList = document.getElementById("product-list");
-const cartList = document.getElementById("cart");
-const totalDisplay = document.getElementById("total");
-
 let cart = [];
+let total = 0;
 
-// 顯示商品
-products.forEach((product, index) => {
-  const div = document.createElement("div");
-  div.className = "product";
+function addItem(item) {
 
-  div.innerHTML = `
-    <h3>${product.name}</h3>
-    <p>Price: $${product.price}</p>
-    <button onclick="addToCart(${index})">Add to Cart</button>
-  `;
+  if (item === "pencil") {
+    cart.push({ name: "Pencil ✏️", price: 10 });
+    total += 10;
+  }
 
-  productList.appendChild(div);
-});
+  if (item === "eraser") {
+    cart.push({ name: "Eraser 🧽", price: 15 });
+    total += 15;
+  }
 
-// 加入購物車
-function addToCart(index) {
-  cart.push(products[index]);
-  updateCart();
+  update();
 }
 
-// 更新購物車
-function updateCart() {
-  cartList.innerHTML = "";
+function update() {
+  let list = document.getElementById("cart");
+  list.innerHTML = "";
 
-  let total = 0;
+  cart.forEach((item, index) => {
+    let li = document.createElement("li");
 
-  cart.forEach(item => {
-    const li = document.createElement("li");
-    li.textContent = `${item.name} - $${item.price}`;
-    cartList.appendChild(li);
-    total += item.price;
+    li.innerHTML = `
+      ${item.name} - $${item.price}
+      <button onclick="removeItem(${index})">❌</button>
+    `;
+
+    list.appendChild(li);
   });
 
-  totalDisplay.textContent = total;
+  document.getElementById("total").innerText = total;
+}
+
+function removeItem(index) {
+  total -= cart[index].price;
+  cart.splice(index, 1);
+  update();
+}
+
+function clearCart() {
+  cart = [];
+  total = 0;
+  update();
 }
