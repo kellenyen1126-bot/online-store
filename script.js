@@ -4,12 +4,12 @@ let total = 0;
 function addItem(item) {
 
   if (item === "pencil") {
-    cart.push({ name: "鉛筆 ✏️", price: 10 });
+    cart.push({ name: "Pencil ✏️", price: 10 });
     total += 10;
   }
 
   if (item === "eraser") {
-    cart.push({ name: "橡皮擦 🧽", price: 15 });
+    cart.push({ name: "Eraser 🧽", price: 15 });
     total += 15;
   }
 
