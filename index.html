@@ -1,54 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Stationery Shop</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-
-<body>
-
-<h1>🛒 Stationery Shop</h1>
-
 <div class="container">
 
-  <!-- Pencil -->
+  <!-- 鉛筆 -->
   <div class="card">
     <img src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Pencil.svg" alt="Pencil">
 
-    <h3>Pencil ✏️</h3>
+    <h3>鉛筆 ✏️</h3>
 
     <p>$10</p>
 
     <button onclick="addItem('pencil')">
-      Add to Cart
+      加入購物車
     </button>
   </div>
 
-  <!-- Eraser -->
+  <!-- 橡皮擦 -->
   <div class="card">
     <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Eraser.svg" alt="Eraser">
 
-    <h3>Eraser 🧽</h3>
+    <h3>橡皮擦 🧽</h3>
 
     <p>$15</p>
 
     <button onclick="addItem('eraser')">
-      Add to Cart
+      加入購物車
     </button>
   </div>
 
 </div>
-
-<hr>
-
-<h2>🧾 Shopping Cart</h2>
-<ul id="cart"></ul>
-
-<h2>💰 Total: $<span id="total">0</span></h2>
-
-<button onclick="clearCart()">🗑 Clear Cart</button>
-
-<script src="script.js"></script>
-
-</body>
-</html>
