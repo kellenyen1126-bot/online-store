@@ -8,12 +8,27 @@
 
 <p id="demo">0</p>
 
+<!-- 圖片顯示區 -->
+<img id="img" src="https://via.placeholder.com/200" width="200">
+
 <script>
 let x = 0;
+
+// 圖片清單（你可以換成自己的圖片）
+let images = [
+  "https://via.placeholder.com/200/ff0000",
+  "https://via.placeholder.com/200/00ff00",
+  "https://via.placeholder.com/200/0000ff",
+  "https://via.placeholder.com/200/ffff00"
+];
 
 function test() {
   x++;
   document.getElementById("demo").innerHTML = x;
+
+  // 換圖片（循環）
+  let index = x % images.length;
+  document.getElementById("img").src = images[index];
 }
 </script>
 
