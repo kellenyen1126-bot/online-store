@@ -8,7 +8,8 @@
 
 <p id="demo">0</p>
 
-<img id="img" src="https://picsum.photos/200" width="200">
+<!-- 本地圖片（最穩定） -->
+<img id="img" src="cat.jpg" width="300">
 
 <script>
 let x = 0;
@@ -17,8 +18,12 @@ function test() {
   x++;
   document.getElementById("demo").innerHTML = x;
 
-  // 每次換不同圖片（用 random 保證會變）
-  document.getElementById("img").src = "https://picsum.photos/200?random=" + x;
+  // 點幾次就換顯示（假裝變化效果）
+  if (x % 2 == 0) {
+    document.getElementById("img").style.border = "5px solid red";
+  } else {
+    document.getElementById("img").style.border = "5px solid blue";
+  }
 }
 </script>
 
