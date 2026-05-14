@@ -1,27 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Stationery Shop</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<h1>🛒 Stationery Shop</h1>
+
 <div class="container">
 
   <div class="card">
-    <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png" alt="Pencil">
+
+    <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png">
 
     <h3>Pencil ✏️</h3>
 
     <p>$10</p>
 
-    <button onclick="addItem('pencil')">
+    <button onclick="addPencil()">
       Add to Cart
     </button>
+
   </div>
 
   <div class="card">
-    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png" alt="Eraser">
+
+    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png">
 
     <h3>Eraser 🧽</h3>
 
     <p>$15</p>
 
-    <button onclick="addItem('eraser')">
+    <button onclick="addEraser()">
       Add to Cart
     </button>
+
   </div>
 
 </div>
+
+<h2>Total: $<span id="total">0</span></h2>
+
+<script src="script.js"></script>
+
+</body>
+</html>
