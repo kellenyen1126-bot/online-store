@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Modern Stationery Shop</title>
 
   <style>
+
     * {
       margin: 0;
       padding: 0;
@@ -59,4 +62,228 @@
       color: #333;
     }
 
+    .price {
+      font-size: 24px;
+      color: #ff5722;
+      margin-bottom: 15px;
+      font-weight: bold;
+    }
+
+    button {
+      background: #4caf50;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 12px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 8px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .cart {
+      width: 360px;
+      margin: auto;
+      background: white;
+      border-radius: 20px;
+      padding: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    }
+
+    .cart h2 {
+      margin-bottom: 20px;
+    }
+
+    ul {
+      list-style: none;
+      margin-bottom: 20px;
+    }
+
+    li {
+      background: #f5f5f5;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .delete-btn {
+      background: crimson;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    .delete-btn:hover {
+      background: darkred;
+    }
+
+    #total {
+      font-size: 34px;
+      color: #e91e63;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    .clear {
+      background: #333;
+    }
+
+    .clear:hover {
+      background: black;
+    }
+
+    .purchase-btn {
+      background: royalblue;
+    }
+
+    .purchase-btn:hover {
+      background: darkblue;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <h1>🛒 Modern Stationery Shop</h1>
+
+  <div class="shop">
+
+    <!-- Pencil -->
+    <div class="card">
+
+      <img src="data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'>
+      <rect width='140' height='140' fill='white'/>
+      <polygon points='20,70 100,30 120,70 40,110' fill='%23f4c542'/>
+      <polygon points='100,30 125,20 120,70' fill='%23d98c3f'/>
+      <polygon points='120,70 125,20 132,40' fill='black'/>
+      <rect x='20' y='60' width='20' height='20' fill='%23ff6b81'/>
+      </svg>">
+
+      <h2>Pencil ✏️</h2>
+
+      <div class="price">$10</div>
+
+      <button onclick="addItem('Pencil ✏️', 10)">
+        Add to Cart
+      </button>
+
+    </div>
+
+    <!-- Eraser -->
+    <div class="card">
+
+      <img src="data:image/svg+xml;utf8,
+      <svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'>
+      <rect width='140' height='140' fill='white'/>
+      <rect x='25' y='45' width='90' height='50' rx='10' fill='%23ff8fab'/>
+      <rect x='70' y='45' width='45' height='50' rx='10' fill='%23ffb3c1'/>
+      <text x='40' y='75' font-size='14' fill='white'>ERASER</text>
+      </svg>">
+
+      <h2>Eraser 🧽</h2>
+
+      <div class="price">$15</div>
+
+      <button onclick="addItem('Eraser 🧽', 15)">
+        Add to Cart
+      </button>
+
+    </div>
+
+  </div>
+
+  <div class="cart">
+
+    <h2>🧾 Shopping Cart</h2>
+
+    <ul id="cartList"></ul>
+
+    <div id="total">$0</div>
+
+    <button class="purchase-btn" onclick="purchase()">
+      Purchase
+    </button>
+
+    <button class="clear" onclick="clearCart()">
+      Clear Cart
+    </button>
+
+  </div>
+
+  <script>
+
+    let total = 0;
+
+    function addItem(name, price) {
+
+      total += price;
+
+      const li = document.createElement("li");
+
+      li.innerHTML = `
+        <span>${name} - $${price}</span>
+
+        <button class="delete-btn"
+        onclick="removeItem(this, ${price})">
+          X
+        </button>
+      `;
+
+      document.getElementById("cartList")
+      .appendChild(li);
+
+      updateTotal();
+    }
+
+    function removeItem(button, price) {
+
+      button.parentElement.remove();
+
+      total -= price;
+
+      updateTotal();
+    }
+
+    function clearCart() {
+
+      document.getElementById("cartList")
+      .innerHTML = "";
+
+      total = 0;
+
+      updateTotal();
+    }
+
+    function purchase() {
+
+      if (total === 0) {
+
+        alert("Your cart is empty!");
+
+      } else {
+
+        alert("Purchase Successful! 🛒");
+
+        clearCart();
+      }
+    }
+
+    function updateTotal() {
+
+      document.getElementById("total")
+      .innerHTML = "$" + total;
+    }
+
+  </script>
+
+</body>
 </html>
