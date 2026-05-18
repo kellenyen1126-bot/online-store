@@ -1,33 +1,34 @@
 <!DOCTYPE html>
 <html>
-<body>
+<body style="text-align:center; font-family:Arial;">
 
-<h1>Hello</h1>
+<h1>🛒 Stationery Shop</h1>
 
-<button onclick="test()">Click</button>
+<button onclick="test()">Add Item</button>
 
-<p id="demo">0</p>
+<p>Total Items: <span id="demo">0</span></p>
 
-<!-- 測試圖片（先確認能不能顯示） -->
-<img id="img" 
-     src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png"
-     width="300">
+<img id="img"
+     src="https://cdn-icons-png.flaticon.com/512/32/32339.png"
+     width="200">
 
 <script>
 let x = 0;
 
-// 如果你要換圖片，可以加在這裡
+// 鉛筆 + 橡皮擦圖片
 let images = [
-  "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png",
-  "https://upload.wikimedia.org/wikipedia/commons/3/3f/Fronalpstock_big.jpg"
+  "https://cdn-icons-png.flaticon.com/512/32/32339.png",
+  "https://cdn-icons-png.flaticon.com/512/1828/1828884.png"
 ];
 
 function test() {
   x++;
+
   document.getElementById("demo").innerHTML = x;
 
-  // 每次點擊切換圖片
+  // 切換圖片
   let index = x % images.length;
+
   document.getElementById("img").src = images[index];
 }
 </script>
