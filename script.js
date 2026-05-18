@@ -1,13 +1,61 @@
 let total = 0;
 
-function addPencil() {
-  total += 10;
+function addItem(name, price) {
 
-  document.getElementById("total").innerText = total;
+  total += price;
+
+  const li = document.createElement("li");
+
+  li.innerHTML = `
+    <span>${name} - $${price}</span>
+
+    <button class="delete-btn"
+    onclick="removeItem(this, ${price})">
+      X
+    </button>
+  `;
+
+  document.getElementById("cartList")
+  .appendChild(li);
+
+  updateTotal();
 }
 
-function addEraser() {
-  total += 15;
+function removeItem(button, price) {
 
-  document.getElementById("total").innerText = total;
+  button.parentElement.remove();
+
+  total -= price;
+
+  updateTotal();
+}
+
+function clearCart() {
+
+  document.getElementById("cartList")
+  .innerHTML = "";
+
+  total = 0;
+
+  updateTotal();
+}
+
+function purchase() {
+
+  if (total === 0) {
+
+    alert("Your cart is empty!");
+
+  } else {
+
+    alert("Purchase Successful! 🛒");
+
+    clearCart();
+  }
+}
+
+function updateTotal() {
+
+  document.getElementById("total")
+  .innerHTML = "$" + total;
 }
