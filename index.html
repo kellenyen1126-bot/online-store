@@ -1,35 +1,165 @@
 <!DOCTYPE html>
 <html>
-<body style="text-align:center; font-family:Arial;">
+
+<head>
+  <title>Stationery Shop</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #f2f2f2;
+      margin-top: 40px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .shop {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 30px;
+    }
+
+    .card {
+      background: white;
+      width: 220px;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    img {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+    }
+
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      margin-top: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+
+    #cart {
+      margin-top: 40px;
+      background: white;
+      display: inline-block;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+      width: 300px;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      margin: 10px 0;
+    }
+
+    #total {
+      font-size: 28px;
+      color: #e91e63;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
 
 <h1>🛒 Stationery Shop</h1>
 
-<button onclick="test()">Add Item</button>
+<div class="shop">
 
-<p>Total Items: <span id="demo">0</span></p>
+  <!-- Pencil -->
+  <div class="card">
+    <img src="https://cdn-icons-png.flaticon.com/512/32/32339.png">
 
-<img id="img"
-     src="https://cdn-icons-png.flaticon.com/512/32/32339.png"
-     width="200">
+    <h2>Pencil ✏️</h2>
+
+    <p>Price: $10</p>
+
+    <button onclick="addItem('Pencil ✏️', 10)">
+      Add to Cart
+    </button>
+  </div>
+
+  <!-- Eraser -->
+  <div class="card">
+    <img src="https://cdn-icons-png.flaticon.com/512/1828/1828884.png">
+
+    <h2>Eraser 🧽</h2>
+
+    <p>Price: $15</p>
+
+    <button onclick="addItem('Eraser 🧽', 15)">
+      Add to Cart
+    </button>
+  </div>
+
+</div>
+
+<div id="cart">
+
+  <h2>🧾 Shopping Cart</h2>
+
+  <ul id="cartList"></ul>
+
+  <h2>Total:</h2>
+
+  <p id="total">$0</p>
+
+  <button onclick="clearCart()">
+    Clear Cart
+  </button>
+
+</div>
 
 <script>
-let x = 0;
+let total = 0;
 
-// 鉛筆 + 橡皮擦圖片
-let images = [
-  "https://cdn-icons-png.flaticon.com/512/32/32339.png",
-  "https://cdn-icons-png.flaticon.com/512/1828/1828884.png"
-];
+function addItem(name, price) {
 
-function test() {
-  x++;
+  total += price;
 
-  document.getElementById("demo").innerHTML = x;
+  // 加入購物車清單
+  let li = document.createElement("li");
 
-  // 切換圖片
-  let index = x % images.length;
+  li.innerHTML = `${name} - $${price}`;
 
-  document.getElementById("img").src = images[index];
+  document.getElementById("cartList").appendChild(li);
+
+  // 更新總價
+  document.getElementById("total").innerHTML = "$" + total;
+}
+
+// 清空購物車
+function clearCart() {
+
+  total = 0;
+
+  document.getElementById("cartList").innerHTML = "";
+
+  document.getElementById("total").innerHTML = "$0";
 }
 </script>
 
