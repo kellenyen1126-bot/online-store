@@ -1,71 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Stationery Shop</title>
+<div class="card">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+  <img src="pencil.png" alt="Pencil">
 
-    body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(to right, #dfe9f3, #ffffff);
-      min-height: 100vh;
-      padding: 40px;
-      text-align: center;
-    }
+  <h2>Pencil ✏️</h2>
 
-    h1 {
-      font-size: 42px;
-      margin-bottom: 30px;
-      color: #222;
-    }
+  <div class="price">$10</div>
 
-    .shop {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
+  <button onclick="addItem('Pencil ✏️', 10)">
+    Add to Cart
+  </button>
 
-    .card {
-      width: 260px;
-      background: white;
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-      transition: 0.3s;
-    }
+</div>
 
-    .card:hover {
-      transform: translateY(-8px) scale(1.03);
-    }
+<div class="card">
 
-    .card img {
-      width: 140px;
-      height: 140px;
-      object-fit: contain;
-      margin-bottom: 15px;
-    }
+  <img src="eraser.png" alt="Eraser">
 
-    .card h2 {
-      margin-bottom: 10px;
-      color: #333;
-    }
+  <h2>Eraser 🧽</h2>
 
-    .price {
-      font-size: 24px;
-      color: #ff5722;
-      margin-bottom: 15px;
-      font-weight: bold;
-    }
+  <div class="price">$15</div>
 
-    button {
-      background: #4caf50;
-</html>
+  <button onclick="addItem('Eraser 🧽', 15)">
+    Add to Cart
+  </button>
+
+</div>
