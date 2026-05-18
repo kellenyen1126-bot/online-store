@@ -1,30 +1,67 @@
 let total = 0;
 
+// store items in object instead of duplicates
+let cart = {};
+
 function addItem(name, price) {
+
+  if (cart[name]) {
+    cart[name].qty += 1;
+  } else {
+    cart[name] = {
+      price: price,
+      qty: 1
+    };
+  }
+
   total += price;
-
-  const li = document.createElement("li");
-
-  li.innerHTML = `
-    <span>${name} - $${price}</span>
-    <button class="delete-btn" onclick="removeItem(this, ${price})">X</button>
-  `;
-
-  document.getElementById("cartList").appendChild(li);
-
-  updateTotal();
+  renderCart();
 }
 
-function removeItem(button, price) {
-  button.parentElement.remove();
-  total -= price;
+function removeOne(name) {
+
+  if (!cart[name]) return;
+
+  cart[name].qty -= 1;
+  total -= cart[name].price;
+
+  if (cart[name].qty <= 0) {
+    delete cart[name];
+  }
+
+  renderCart();
+}
+
+function renderCart() {
+
+  const list = document.getElementById("cartList");
+  list.innerHTML = "";
+
+  for (let name in cart) {
+
+    const item = cart[name];
+
+    const li = document.createElement("li");
+
+    li.innerHTML = `
+      <span>
+        ${name} - $${item.price} 
+        <b> x${item.qty}</b>
+      </span>
+
+      <button class="delete-btn" onclick="removeOne('${name}')">-</button>
+    `;
+
+    list.appendChild(li);
+  }
+
   updateTotal();
 }
 
 function clearCart() {
-  document.getElementById("cartList").innerHTML = "";
+  cart = {};
   total = 0;
-  updateTotal();
+  renderCart();
 }
 
 function purchase() {
