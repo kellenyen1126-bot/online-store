@@ -1,17 +1,18 @@
 let total = 0;
-
-// store items in object instead of duplicates
-let cart = {};
+let cart = [];
 
 function addItem(name, price) {
 
-  if (cart[name]) {
-    cart[name].qty += 1;
+  let item = cart.find(i => i.name === name);
+
+  if (item) {
+    item.qty += 1;
   } else {
-    cart[name] = {
+    cart.push({
+      name: name,
       price: price,
       qty: 1
-    };
+    });
   }
 
   total += price;
@@ -20,13 +21,17 @@ function addItem(name, price) {
 
 function removeOne(name) {
 
-  if (!cart[name]) return;
+  let index = cart.findIndex(i => i.name === name);
 
-  cart[name].qty -= 1;
-  total -= cart[name].price;
+  if (index === -1) return;
 
-  if (cart[name].qty <= 0) {
-    delete cart[name];
+  let item = cart[index];
+
+  item.qty -= 1;
+  total -= item.price;
+
+  if (item.qty <= 0) {
+    cart.splice(index, 1);
   }
 
   renderCart();
@@ -37,29 +42,23 @@ function renderCart() {
   const list = document.getElementById("cartList");
   list.innerHTML = "";
 
-  for (let name in cart) {
-
-    const item = cart[name];
+  cart.forEach(item => {
 
     const li = document.createElement("li");
 
     li.innerHTML = `
-      <span>
-        ${name} - $${item.price} 
-        <b> x${item.qty}</b>
-      </span>
-
-      <button class="delete-btn" onclick="removeOne('${name}')">-</button>
+      <span>${item.name} - $${item.price} <b>x${item.qty}</b></span>
+      <button class="delete-btn" onclick="removeOne('${item.name}')">-</button>
     `;
 
     list.appendChild(li);
-  }
+  });
 
   updateTotal();
 }
 
 function clearCart() {
-  cart = {};
+  cart = [];
   total = 0;
   renderCart();
 }
