@@ -3,31 +3,36 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stationery Shop</title>
+  <title>Shop + Supabase Auth</title>
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
 </head>
 
 <body>
 
-<!-- LOGIN -->
+<!-- AUTH -->
 <div id="authBox" class="auth-box">
-  <h2 id="authTitle">Login</h2>
 
-  <input id="username" placeholder="Username">
+  <h2>Login / Register</h2>
+
+  <input id="email" placeholder="Email">
   <input id="password" type="password" placeholder="Password">
 
-  <button onclick="authAction()">Submit</button>
+  <button onclick="signUp()">Register</button>
+  <button onclick="signIn()">Login</button>
 
-  <p onclick="toggleAuth()" id="toggleText">
-    No account? Register
-  </p>
+  <p id="status"></p>
 </div>
 
 <!-- SHOP -->
 <div id="shopBox" style="display:none;">
 
   <h1>🛒 Stationery Shop</h1>
+
+  <button onclick="logout()">Logout</button>
 
   <div class="shop">
 
@@ -51,12 +56,10 @@
     <h2>Cart</h2>
 
     <ul id="cartList"></ul>
-
     <div id="total">$0</div>
 
-    <button onclick="purchase()">Purchase</button>
     <button onclick="clearCart()">Clear</button>
-    <button onclick="logout()">Logout</button>
+    <button onclick="purchase()">Buy</button>
 
   </div>
 
