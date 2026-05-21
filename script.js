@@ -1,66 +1,63 @@
-let total = 0;
+// 🔥 PUT YOUR SUPABASE INFO HERE
+const SUPABASE_URL = "YOUR_SUPABASE_URL";
+const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+
+const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 let cart = [];
-let isLogin = true;
+let total = 0;
 
-/* ===== AUTH ===== */
+/* ================= AUTH ================= */
 
-function toggleAuth() {
-  isLogin = !isLogin;
+async function signUp() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  document.getElementById("authTitle").innerText =
-    isLogin ? "Login" : "Register";
+  let { error } = await client.auth.signUp({
+    email,
+    password
+  });
 
-  document.getElementById("toggleText").innerText =
-    isLogin ? "No account? Register" : "Already have account? Login";
-}
-
-function authAction() {
-
-  const user = document.getElementById("username").value;
-  const pass = document.getElementById("password").value;
-
-  let users = JSON.parse(localStorage.getItem("users")) || [];
-
-  if (!user || !pass) {
-    alert("Fill all fields");
-    return;
-  }
-
-  if (!isLogin) {
-
-    let exists = users.find(u => u.user === user);
-
-    if (exists) {
-      alert("User already exists");
-      return;
-    }
-
-    users.push({ user, pass });
-    localStorage.setItem("users", JSON.stringify(users));
-
-    alert("Registered! Now login");
-    toggleAuth();
-
+  if (error) {
+    document.getElementById("status").innerText = error.message;
   } else {
-
-    let found = users.find(u => u.user === user && u.pass === pass);
-
-    if (found) {
-      alert("Login success!");
-
-      document.getElementById("authBox").style.display = "none";
-      document.getElementById("shopBox").style.display = "block";
-
-    } else {
-      alert("Wrong login");
-    }
+    document.getElementById("status").innerText = "Registered! Check email or login.";
   }
 }
 
-/* ===== CART ===== */
+async function signIn() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  let { error } = await client.auth.signInWithPassword({
+    email,
+    password
+  });
+
+  if (error) {
+    document.getElementById("status").innerText = error.message;
+  } else {
+    document.getElementById("authBox").style.display = "none";
+    document.getElementById("shopBox").style.display = "block";
+  }
+}
+
+async function logout() {
+  await client.auth.signOut();
+  location.reload();
+}
+
+/* check session on load */
+client.auth.getSession().then(({ data }) => {
+  if (data.session) {
+    document.getElementById("authBox").style.display = "none";
+    document.getElementById("shopBox").style.display = "block";
+  }
+});
+
+/* ================= CART ================= */
 
 function addItem(name, price) {
-
   let item = cart.find(i => i.name === name);
 
   if (item) {
@@ -73,36 +70,13 @@ function addItem(name, price) {
   renderCart();
 }
 
-function removeOne(name) {
-
-  let item = cart.find(i => i.name === name);
-
-  if (!item) return;
-
-  item.qty--;
-  total -= item.price;
-
-  if (item.qty <= 0) {
-    cart = cart.filter(i => i.name !== name);
-  }
-
-  renderCart();
-}
-
 function renderCart() {
-
-  const list = document.getElementById("cartList");
+  let list = document.getElementById("cartList");
   list.innerHTML = "";
 
   cart.forEach(item => {
-
-    const li = document.createElement("li");
-
-    li.innerHTML = `
-      <span>${item.name} x${item.qty}</span>
-      <button onclick="removeOne('${item.name}')">-</button>
-    `;
-
+    let li = document.createElement("li");
+    li.innerHTML = `${item.name} x${item.qty} - $${item.price}`;
     list.appendChild(li);
   });
 
@@ -117,13 +91,9 @@ function clearCart() {
 
 function purchase() {
   if (total === 0) {
-    alert("Cart is empty");
+    alert("Cart empty");
   } else {
-    alert("Purchase successful!");
+    alert("Purchase success!");
     clearCart();
   }
-}
-
-function logout() {
-  location.reload();
 }
