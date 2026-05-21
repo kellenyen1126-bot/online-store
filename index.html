@@ -3,16 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modern Stationery Shop</title>
+  <title>Stationery Shop</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- AUTH -->
+<!-- LOGIN -->
 <div id="authBox" class="auth-box">
-
   <h2 id="authTitle">Login</h2>
 
   <input id="username" placeholder="Username">
@@ -23,35 +22,34 @@
   <p onclick="toggleAuth()" id="toggleText">
     No account? Register
   </p>
-
 </div>
 
 <!-- SHOP -->
 <div id="shopBox" style="display:none;">
 
-  <h1>🛒 Modern Stationery Shop</h1>
+  <h1>🛒 Stationery Shop</h1>
 
   <div class="shop">
 
     <div class="card">
       <img src="https://as2.ftcdn.net/v2/jpg/01/75/58/65/1000_F_175586544_WEc5HAQXkkgLAb1QRZrPW4LY7Qaw7OKU.jpg">
-      <h2>Pencil ✏️</h2>
+      <h2>Pencil</h2>
       <div class="price">$10</div>
-      <button onclick="addItem('Pencil', 10)">Add</button>
+      <button onclick="addItem('Pencil',10)">Add</button>
     </div>
 
     <div class="card">
-      <img src="https://th.bing.com/th/id/OIP.PKKI4eOAoJ_NJXNdIdADbwHaE_?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3">
-      <h2>Eraser 🧽</h2>
+      <img src="https://th.bing.com/th/id/OIP.PKKI4eOAoJ_NJXNdIdADbwHaE_?pid=ImgDetMain">
+      <h2>Eraser</h2>
       <div class="price">$15</div>
-      <button onclick="addItem('Eraser', 15)">Add</button>
+      <button onclick="addItem('Eraser',15)">Add</button>
     </div>
 
   </div>
 
   <div class="cart">
+    <h2>Cart</h2>
 
-    <h2>🧾 Cart</h2>
     <ul id="cartList"></ul>
 
     <div id="total">$0</div>
