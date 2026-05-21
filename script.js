@@ -2,7 +2,8 @@ let total = 0;
 let cart = [];
 let isLogin = true;
 
-/* ---------- AUTH ---------- */
+/* ===== AUTH ===== */
+
 function toggleAuth() {
   isLogin = !isLogin;
 
@@ -15,8 +16,8 @@ function toggleAuth() {
 
 function authAction() {
 
-  const user = document.getElementById("username").value.trim();
-  const pass = document.getElementById("password").value.trim();
+  const user = document.getElementById("username").value;
+  const pass = document.getElementById("password").value;
 
   let users = JSON.parse(localStorage.getItem("users")) || [];
 
@@ -26,7 +27,7 @@ function authAction() {
   }
 
   if (!isLogin) {
-    // REGISTER
+
     let exists = users.find(u => u.user === user);
 
     if (exists) {
@@ -41,20 +42,23 @@ function authAction() {
     toggleAuth();
 
   } else {
-    // LOGIN
+
     let found = users.find(u => u.user === user && u.pass === pass);
 
     if (found) {
       alert("Login success!");
+
       document.getElementById("authBox").style.display = "none";
       document.getElementById("shopBox").style.display = "block";
+
     } else {
       alert("Wrong login");
     }
   }
 }
 
-/* ---------- CART ---------- */
+/* ===== CART ===== */
+
 function addItem(name, price) {
 
   let item = cart.find(i => i.name === name);
@@ -92,10 +96,10 @@ function renderCart() {
 
   cart.forEach(item => {
 
-    let li = document.createElement("li");
+    const li = document.createElement("li");
 
     li.innerHTML = `
-      <span>${item.name} x${item.qty} - $${item.price}</span>
+      <span>${item.name} x${item.qty}</span>
       <button onclick="removeOne('${item.name}')">-</button>
     `;
 
@@ -113,9 +117,9 @@ function clearCart() {
 
 function purchase() {
   if (total === 0) {
-    alert("Cart empty!");
+    alert("Cart is empty");
   } else {
-    alert("Success!");
+    alert("Purchase successful!");
     clearCart();
   }
 }
