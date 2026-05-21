@@ -1,27 +1,29 @@
 body {
   font-family: Arial;
   text-align: center;
-  background: linear-gradient(to right, #dfe9f3, #ffffff);
-  padding: 20px;
+  background: #eef2f7;
 }
 
-/* LOGIN */
 .auth-box {
-  width: 260px;
+  width: 280px;
   margin: 80px auto;
-  padding: 15px;
+  padding: 20px;
   background: white;
   border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
 
-.auth-box input {
+input {
   width: 90%;
   padding: 8px;
-  margin: 6px 0;
+  margin: 5px;
 }
 
-/* SHOP */
+button {
+  padding: 8px 12px;
+  margin: 5px;
+  cursor: pointer;
+}
+
 .shop {
   display: flex;
   justify-content: center;
@@ -34,20 +36,12 @@ body {
   background: white;
   padding: 15px;
   border-radius: 10px;
-  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
 }
 
 .card img {
-  width: 80px;
-  height: 80px;
+  width: 90px;
 }
 
-.price {
-  color: orange;
-  font-weight: bold;
-}
-
-/* CART */
 .cart {
   margin: 20px auto;
   width: 300px;
@@ -58,7 +52,6 @@ body {
 
 ul {
   list-style: none;
-  padding: 0;
 }
 
 li {
@@ -66,13 +59,5 @@ li {
   justify-content: space-between;
   background: #eee;
   margin: 5px 0;
-  padding: 6px;
-  border-radius: 6px;
-}
-
-/* BUTTON */
-button {
-  margin-top: 5px;
-  padding: 6px 10px;
-  cursor: pointer;
+  padding: 5px;
 }
