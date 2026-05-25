@@ -1,61 +1,66 @@
-// 🔥 PUT YOUR SUPABASE INFO HERE
 const SUPABASE_URL = "YOUR_SUPABASE_URL";
 const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
 
 const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-let cart = [];
-let total = 0;
-
-/* ================= AUTH ================= */
+/* ---------- AUTH ---------- */
 
 async function signUp() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  let { error } = await client.auth.signUp({
+  const { data, error } = await client.auth.signUp({
     email,
     password
   });
 
   if (error) {
-    document.getElementById("status").innerText = error.message;
-  } else {
-    document.getElementById("status").innerText = "Registered! Check email or login.";
+    alert("Register Error: " + error.message);
+    return;
   }
+
+  alert("Registered! Now login.");
 }
 
 async function signIn() {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  let { error } = await client.auth.signInWithPassword({
+  const { data, error } = await client.auth.signInWithPassword({
     email,
     password
   });
 
   if (error) {
-    document.getElementById("status").innerText = error.message;
-  } else {
+    alert("Login Error: " + error.message);
+    return;
+  }
+
+  document.getElementById("authBox").style.display = "none";
+  document.getElementById("shopBox").style.display = "block";
+}
+
+/* AUTO CHECK SESSION */
+async function checkUser() {
+  const { data } = await client.auth.getSession();
+
+  if (data.session) {
     document.getElementById("authBox").style.display = "none";
     document.getElementById("shopBox").style.display = "block";
   }
 }
 
+checkUser();
+
+/* ---------- LOGOUT ---------- */
 async function logout() {
   await client.auth.signOut();
   location.reload();
 }
 
-/* check session on load */
-client.auth.getSession().then(({ data }) => {
-  if (data.session) {
-    document.getElementById("authBox").style.display = "none";
-    document.getElementById("shopBox").style.display = "block";
-  }
-});
-
-/* ================= CART ================= */
+/* ---------- CART ---------- */
+let cart = [];
+let total = 0;
 
 function addItem(name, price) {
   let item = cart.find(i => i.name === name);
@@ -71,11 +76,11 @@ function addItem(name, price) {
 }
 
 function renderCart() {
-  let list = document.getElementById("cartList");
+  const list = document.getElementById("cartList");
   list.innerHTML = "";
 
   cart.forEach(item => {
-    let li = document.createElement("li");
+    const li = document.createElement("li");
     li.innerHTML = `${item.name} x${item.qty} - $${item.price}`;
     list.appendChild(li);
   });
