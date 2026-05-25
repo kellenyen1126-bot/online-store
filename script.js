@@ -1,30 +1,27 @@
 import { initializeApp } from "firebase/app";
-import { getAuth,
+import {
+  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged
 } from "firebase/auth";
 
-import { getAnalytics } from "firebase/analytics";
-
-/* ---------- CONFIG ---------- */
+/* ---------- YOUR CONFIG ---------- */
 const firebaseConfig = {
   apiKey: "AIzaSyBfNgoTbkvoL_kWb_sr7E5RcOLg_oteens",
   authDomain: "onlinestore-b48e3.firebaseapp.com",
   projectId: "onlinestore-b48e3",
   storageBucket: "onlinestore-b48e3.firebasestorage.app",
   messagingSenderId: "883945675813",
-  appId: "1:883945675813:web:c2e4dcdad489897707f3cc",
-  measurementId: "G-XVF9JD7FNM"
+  appId: "1:883945675813:web:c2e4dcdad489897707f3cc"
 };
 
 /* ---------- INIT ---------- */
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const analytics = getAnalytics(app);
 
-/* ---------- AUTH ---------- */
+/* ---------- MUST EXPOSE FUNCTIONS (IMPORTANT FIX) ---------- */
 
 window.register = async function () {
   const email = document.getElementById("email").value;
@@ -32,9 +29,9 @@ window.register = async function () {
 
   try {
     await createUserWithEmailAndPassword(auth, email, password);
-    alert("Registered!");
+    document.getElementById("msg").innerText = "Registered!";
   } catch (e) {
-    alert(e.message);
+    document.getElementById("msg").innerText = e.message;
   }
 };
 
@@ -49,7 +46,7 @@ window.login = async function () {
     document.getElementById("shopBox").style.display = "block";
 
   } catch (e) {
-    alert(e.message);
+    document.getElementById("msg").innerText = e.message;
   }
 };
 
@@ -81,10 +78,11 @@ window.addItem = function (name, price) {
   }
 
   total += price;
-  render();
+  renderCart();
 };
 
-function render() {
+function renderCart() {
+
   const list = document.getElementById("cart");
   list.innerHTML = "";
 
