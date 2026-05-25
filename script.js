@@ -1,68 +1,77 @@
-const SUPABASE_URL = "YOUR_SUPABASE_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+import { initializeApp } from "firebase/app";
+import { getAuth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "firebase/auth";
 
-const client = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+import { getAnalytics } from "firebase/analytics";
+
+/* ---------- CONFIG ---------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyBfNgoTbkvoL_kWb_sr7E5RcOLg_oteens",
+  authDomain: "onlinestore-b48e3.firebaseapp.com",
+  projectId: "onlinestore-b48e3",
+  storageBucket: "onlinestore-b48e3.firebasestorage.app",
+  messagingSenderId: "883945675813",
+  appId: "1:883945675813:web:c2e4dcdad489897707f3cc",
+  measurementId: "G-XVF9JD7FNM"
+};
+
+/* ---------- INIT ---------- */
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const analytics = getAnalytics(app);
 
 /* ---------- AUTH ---------- */
 
-async function signUp() {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
+window.register = async function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-  const { data, error } = await client.auth.signUp({
-    email,
-    password
-  });
-
-  if (error) {
-    alert("Register Error: " + error.message);
-    return;
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    alert("Registered!");
+  } catch (e) {
+    alert(e.message);
   }
+};
 
-  alert("Registered! Now login.");
-}
+window.login = async function () {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
 
-async function signIn() {
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
 
-  const { data, error } = await client.auth.signInWithPassword({
-    email,
-    password
-  });
+    document.getElementById("authBox").style.display = "none";
+    document.getElementById("shopBox").style.display = "block";
 
-  if (error) {
-    alert("Login Error: " + error.message);
-    return;
+  } catch (e) {
+    alert(e.message);
   }
+};
 
-  document.getElementById("authBox").style.display = "none";
-  document.getElementById("shopBox").style.display = "block";
-}
+window.logout = async function () {
+  await signOut(auth);
+  location.reload();
+};
 
-/* AUTO CHECK SESSION */
-async function checkUser() {
-  const { data } = await client.auth.getSession();
-
-  if (data.session) {
+/* ---------- AUTO LOGIN ---------- */
+onAuthStateChanged(auth, (user) => {
+  if (user) {
     document.getElementById("authBox").style.display = "none";
     document.getElementById("shopBox").style.display = "block";
   }
-}
-
-checkUser();
-
-/* ---------- LOGOUT ---------- */
-async function logout() {
-  await client.auth.signOut();
-  location.reload();
-}
+});
 
 /* ---------- CART ---------- */
 let cart = [];
 let total = 0;
 
-function addItem(name, price) {
+window.addItem = function (name, price) {
+
   let item = cart.find(i => i.name === name);
 
   if (item) {
@@ -72,33 +81,18 @@ function addItem(name, price) {
   }
 
   total += price;
-  renderCart();
-}
+  render();
+};
 
-function renderCart() {
-  const list = document.getElementById("cartList");
+function render() {
+  const list = document.getElementById("cart");
   list.innerHTML = "";
 
-  cart.forEach(item => {
+  cart.forEach(i => {
     const li = document.createElement("li");
-    li.innerHTML = `${item.name} x${item.qty} - $${item.price}`;
+    li.innerText = `${i.name} x${i.qty} - $${i.price}`;
     list.appendChild(li);
   });
 
   document.getElementById("total").innerText = "$" + total;
-}
-
-function clearCart() {
-  cart = [];
-  total = 0;
-  renderCart();
-}
-
-function purchase() {
-  if (total === 0) {
-    alert("Cart empty");
-  } else {
-    alert("Purchase success!");
-    clearCart();
-  }
 }
